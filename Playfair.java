@@ -19,7 +19,7 @@ public class Playfair {
         return table;
     }
 
-    // For Double Letters
+    // For Double Letters (Add X between)
     public static String doubles(String txt) {
         int len = txt.length();
         for (int i = 0; i < len - 1; i += 2) {
@@ -34,22 +34,28 @@ public class Playfair {
     public static String JtoI(String txt) {
         String newTxt = "";
         int len = txt.length();
-        for (int i = 0; i < len; i++) {
+        int i = 0;
+        while (i < len) {
             if ((txt.substring(i, i + 1)) == "J") {
                 newTxt = newTxt + "I";
             } else {
                 newTxt = newTxt + txt.substring(i, i + 1);
             }
+            i++;
         }
         return newTxt;
     }
 
-    public static String encode(String text, String[][] table) {
-        return text;
+    public static String encode(String input, String[][] table) {
+        String text = JtoI(input);
+        text = doubles(text);
+        String output = "";
+        return output;
     }
 
-    public static String decode(String text, String[][] table) {
-        return text;
+    public static String decode(String input, String[][] table) {
+        String output = "";
+        return output;
     }
 
     public static void main(String[] args) {
