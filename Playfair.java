@@ -54,11 +54,18 @@ public class Playfair {
         return txt;
     }
     
-    public static String encode(String input, String[][] table) {
+    public static String[] encodePairs(String input) {
         String text = JtoI(input);
         text = doubles(text);
-        String output = "";
-        return output;
+        int len = text.length();
+        int half = len / 2;
+        String[] rowColPairs = new String[half];
+        int index = 0;
+        for (int val = 0; val < half; val++) {
+            rowColPairs[val] = text.substring(index, index + 2);
+            index = index + 2;
+        }
+        return rowColPairs;
     }
 
     public static String decode(String input, String[][] table) {
@@ -71,10 +78,21 @@ public class Playfair {
         String keyStr = args[2].toUpperCase(); // key
         String[][] keytable = makeTable(keyStr);
 
-        if (args[0].equals("encode")) { // arg[0] is either encode or decode
-            System.out.println(encode(chars, keytable));
+        if (args[0].equals("encode")) {
+            String[] pairsEncode = encodePairs(chars);
+            int len = pairsEncode.length;
+            for (int val = 0; val < len; val++) {
+                System.out.print(encode(pairsEncode[val], keytable));
+            }
         } else {
-            System.out.println(decode(chars, keytable));
+            String[] pairsDecode = decodePairs(chars);
+            int len = pairsDecode.length;
+            for (int val = 0; val < len; val++) {
+                while (!(pairsDecode[val] == null)) {
+                    System.out.print(decode(pairsDecode[val], keytable));
+                }
+            }
         }
+        System.out.println();
     }
 }
