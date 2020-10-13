@@ -1,4 +1,4 @@
-# Playfair Cipher
+# Playfair Cipher Assignment Instructions
 
 ENCODE
 1. If the letters are on the same row, use the letters below them to replace them.
