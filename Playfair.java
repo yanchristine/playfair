@@ -68,35 +68,89 @@ public class Playfair {
     
     // Encode Helper Functions
     public static String verticalEncode(String pair, String[][] table) {
-        int[] pair1 = makePair(pair.substring(0, 1), table);
-        int[] pair2 = makePair(pair.substring(1), table);
+        String sub1 = pair.substring(0, 1);
+        String sub2 = pair.substring(1);
+        int[] pair1 = makePair(sub1, table);
+        int[] pair2 = makePair(sub2, table);
         int row = pair1[0] + 1;
-        if (row < 0) {
+        if (row <= -1) {
             row = 4;
         }
-        if (row > 4) {
+        if (row >= 5) {
             row = 0;
         }
         String val1 = table[row][pair1[1]];
         String val2 = table[row][pair2[1]];
-        String newPair = val1 + val2;
-        return newPair;
+        String newVal = val1 + val2;
+        return newVal;
     }
 
     public static String horizontalEncode(String pair, String[][] table) {
-        int[] pair1 = makePair(pair.substring(0, 1), table);
-        int[] pair2 = makePair(pair.substring(1), table);
+        String sub1 = pair.substring(0, 1);
+        String sub2 = pair.substring(1);
+        int[] pair1 = makePair(sub1, table);
+        int[] pair2 = makePair(sub2, table);
         int column = pair1[1] + 1;
-        if (column < 0) {
+        if (column <= -1) {
             column = 4;
         }
-        if (column > 4) {
+        if (column >= 5) {
             column = 0;
         }
         String val1 = table[pair1[0]][column];
         String val2 = table[pair2[0]][column];
-        String newPair = val1 + val2;
-        return newPair;
+        String newVal = val1 + val2;
+        return newVal;
+    }
+    
+    // Decode Helper Functions
+    public static String verticalDecode(String pair, String[][] table) {
+        String sub1 = pair.substring(0, 1);
+        String sub2 = pair.substring(1);
+        int[] pair1 = makePair(sub1, table);
+        int[] pair2 = makePair(sub2, table);
+        int row = pair1[0] - 1;
+        if (row <= -1) {
+            row = 4;
+        }
+        if (row >= 5) {
+            row = 0;
+        }
+        String val1 = table[row][pair1[1]];
+        String val2 = table[row][pair2[1]];
+        String newVal = val1 + val2;
+        return newVal;
+    }
+
+    public static String horizontalDecode(String pair, String[][] table) {
+        String sub1 = pair.substring(0, 1);
+        String sub2 = pair.substring(1);
+        int[] pair1 = makePair(sub1, table);
+        int[] pair2 = makePair(sub2, table);
+        int column = pair1[1] - 1;
+        if (column <= -1) {
+            column = 4;
+        }
+        if (column >= 5) {
+            column = 0;
+        }
+        String val1 = table[pair1[0]][column];
+        String val2 = table[pair2[0]][column];
+        String newVal = val1 + val2;
+        return newVal;
+    }
+    
+    // Regular Helper
+    public static String regular(String pair, String[][] table) {
+        String sub1 = pair.substring(0, 1);
+        String sub2 = pair.substring(1);
+        int[] pair1 = makePair(sub1, table);
+        int[] pair2 = makePair(sub2, table);
+
+        String val1 = table[pair1[0]][pair2[1]];
+        String val2 = table[pair2[0]][pair1[1]];
+        String newVal = val1 + val2;
+        return newVal;
     }
     
     public static String encode(String input, String[][] table) {
