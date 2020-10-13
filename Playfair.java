@@ -35,10 +35,11 @@ public class Playfair {
         String newTxt = "";
         int len = txt.length();
         for (int i = 0; i < len; i++) {
-            if (("J").equals(txt.substring(i, i + 1))) {
+            String letter = txt.substring(i, i + 1);
+            if (("J").equals(letter)) {
                 newTxt = newTxt + "I";
             } else {
-                newTxt = newTxt + txt.substring(i, i + 1);
+                newTxt = newTxt + letter;
             }
         }
         return newTxt;
@@ -185,6 +186,7 @@ public class Playfair {
         return output;
     }
     
+    // Main Decode Function
     public static String decode(String input, String[][] table) {
         String output = "";
         
@@ -218,9 +220,9 @@ public class Playfair {
     }
 
     public static void main(String[] args) {
-        String chars = args[1].toUpperCase();  // text
-        String keyStr = args[2].toUpperCase(); // key
-        String[][] keytable = makeTable(keyStr);
+        String chars = args[1].toUpperCase();   // text
+        String keyStr = args[2].toUpperCase();  // key
+        String[][] keyTable = makeTable(keyStr);
 
         if (args[0].equals("encode")) { // args[0] is the command
             System.out.print(encode(chars, keyTable));
