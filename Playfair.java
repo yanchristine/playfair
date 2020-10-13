@@ -187,6 +187,33 @@ public class Playfair {
     
     public static String decode(String input, String[][] table) {
         String output = "";
+        
+        int len = input.length() - 1;
+        int i = 0;
+        while (i < len) {
+            String char1 = "" + input.substring(i, i + 1);
+            String char2 = "";
+            if (i + 1 < len) {
+                char2 = char2 + input.substring(i + 1, i + 2);
+            } else {
+                char2 = char2 + input.substring(i + 1);
+            }
+            String pairVals = char1 + char2;
+
+            int[] pair1 = makePair(char1, table);
+            int[] pair2 = makePair(char2, table);
+            if (pair1[0] == pair2[0]) {
+                pairVals = verticalDecode(pairVals, table);
+            } else {
+                if (pair1[1] == pair2[1]) {
+                    pairVals = horizontalDecode(pairVals, table);
+                } else {
+                    pairVals = regular(pairVals, table);
+                }
+            }
+            output = output + pairVals;
+            i = i + 2;
+        }
         return output;
     }
 
