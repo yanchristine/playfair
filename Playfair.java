@@ -46,6 +46,14 @@ public class Playfair {
         return newTxt;
     }
 
+    // If odd string length, add "Z"
+    public static String addZ(String txt) {
+        if (txt.length() % 2 != 0) {
+            txt = txt + "Z";
+        }
+        return txt;
+    }
+    
     public static String encode(String input, String[][] table) {
         String text = JtoI(input);
         text = doubles(text);
