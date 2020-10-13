@@ -1,6 +1,8 @@
 /*
 Christine Yan
 Cybersecurity Fall 2020
+Period 5
+
 Playfair Cipher
 */
 
