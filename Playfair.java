@@ -66,6 +66,39 @@ public class Playfair {
         return pair;
     }
     
+    // Encode Helper Functions
+    public static String verticalEncode(String pair, String[][] table) {
+        int[] pair1 = makePair(pair.substring(0, 1), table);
+        int[] pair2 = makePair(pair.substring(1), table);
+        int row = pair1[0] + 1;
+        if (row < 0) {
+            row = 4;
+        }
+        if (row > 4) {
+            row = 0;
+        }
+        String val1 = table[row][pair1[1]];
+        String val2 = table[row][pair2[1]];
+        String newPair = val1 + val2;
+        return newPair;
+    }
+
+    public static String horizontalEncode(String pair, String[][] table) {
+        int[] pair1 = makePair(pair.substring(0, 1), table);
+        int[] pair2 = makePair(pair.substring(1), table);
+        int column = pair1[1] + 1;
+        if (column < 0) {
+            column = 4;
+        }
+        if (column > 4) {
+            column = 0;
+        }
+        String val1 = table[pair1[0]][column];
+        String val2 = table[pair2[0]][column];
+        String newPair = val1 + val2;
+        return newPair;
+    }
+    
     public static String encode(String input, String[][] table) {
         String text = JtoI(input);
         text = doubles(text);
