@@ -53,6 +53,7 @@ public class Playfair {
         return txt;
     }
     
+    // Make pairs by finding matching row and column
     public static int[] makePair(String character, String[][] table) {
         int[] pair = {0, 0};
         for (int row = 0; row < 5; row++) {
@@ -171,9 +172,9 @@ public class Playfair {
         String keyStr = args[2].toUpperCase(); // key
         String[][] keytable = makeTable(keyStr);
 
-        if (args[0].equals("encode")) {
+        if (args[0].equals("encode")) { // args[0] is the command
             System.out.print(encode(chars, keyTable));
-        } else {
+        } else { // "decode"
             System.out.print(decode(chars, keyTable));
         }
         System.out.println();
