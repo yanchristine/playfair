@@ -22,8 +22,8 @@ public class Playfair {
     // For Double Letters (Add X between)
     public static String doubles(String txt) {
         int len = txt.length();
-        for (int i = 0; i < len - 1; i += 2) {
-            if ((txt.substring(i, i + 1)) == (txt.substring(i + 1, i + 2))) {
+        for (int i = 0; i < len - 1; i = i + 2) {
+            if (txt.substring(i + 1, i + 2).equals(txt.substring(i, i + 1))) {
                 txt = txt.substring(0, i + 1) + "X" + txt.substring(i + 1);
             }
         }
@@ -34,40 +34,46 @@ public class Playfair {
     public static String JtoI(String txt) {
         String newTxt = "";
         int len = txt.length();
-        int i = 0;
-        while (i < len) {
-            if ((txt.substring(i, i + 1)) == "J") {
+        for (int i = 0; i < len; i++) {
+            if (("J").equals(txt.substring(i, i + 1))) {
                 newTxt = newTxt + "I";
             } else {
                 newTxt = newTxt + txt.substring(i, i + 1);
             }
-            i++;
         }
         return newTxt;
     }
 
     // If odd string length, add "Z"
     public static String addZ(String txt) {
-        if (txt.length() % 2 != 0) {
+        int len = txt.length();
+        if (len % 2 == 1) {
             txt = txt + "Z";
         }
         return txt;
     }
     
-    public static String[] encodePairs(String input) {
+    public static int[] makePair(String character, String[][] table) {
+        int[] pair = {0, 0};
+        for (int row = 0; row < 5; row++) {
+            for (int col = 0; col < 5; col++) {
+                if (character.equals(table[row][col])) {
+                    pair[0] = row;
+                    pair[1] = col;
+                }
+            }
+        }
+        return pair;
+    }
+    
+    public static String encode(String input, String[][] table) {
         String text = JtoI(input);
         text = doubles(text);
-        int len = text.length();
-        int half = len / 2;
-        String[] rowColPairs = new String[half];
-        int index = 0;
-        for (int val = 0; val < half; val++) {
-            rowColPairs[val] = text.substring(index, index + 2);
-            index = index + 2;
-        }
-        return rowColPairs;
+        text = addZ(text);
+        String output = "";
+        return output;
     }
-
+    
     public static String decode(String input, String[][] table) {
         String output = "";
         return output;
@@ -79,19 +85,9 @@ public class Playfair {
         String[][] keytable = makeTable(keyStr);
 
         if (args[0].equals("encode")) {
-            String[] pairsEncode = encodePairs(chars);
-            int len = pairsEncode.length;
-            for (int val = 0; val < len; val++) {
-                System.out.print(encode(pairsEncode[val], keytable));
-            }
+            System.out.print(encode(chars, keyTable));
         } else {
-            String[] pairsDecode = decodePairs(chars);
-            int len = pairsDecode.length;
-            for (int val = 0; val < len; val++) {
-                while (!(pairsDecode[val] == null)) {
-                    System.out.print(decode(pairsDecode[val], keytable));
-                }
-            }
+            System.out.print(decode(chars, keyTable));
         }
         System.out.println();
     }
